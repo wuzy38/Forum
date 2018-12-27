@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from forumapp import views#导入views模块
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', views.test),
 ]
