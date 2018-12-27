@@ -20,5 +20,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.test),
+    path('Forum/index/', views.test),
+    path('Forum/register/', views.register),
 ]

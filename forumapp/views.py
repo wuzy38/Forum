@@ -5,3 +5,6 @@ list_ = [{"name":'good','password':'python'},{'name':'learning','password':'djan
 def test(request):
     # return HttpResponse("Hello World!!")
     return render(request,'test.html', {'form' : list_})
+
+def register(request):
+    return render(request, 'register.html')
