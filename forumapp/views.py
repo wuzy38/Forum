@@ -13,9 +13,11 @@ def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
     elif request.method == 'POST':
+        # 提交的用户名和密码
         username = request.POST.get('name')
         password = request.POST.get('password')
-        if username in user_pswd.keys() and user_pswd :
+        # 在数据库中寻找用户名
+        if username in user_pswd.keys() :
             if user_pswd[username] == password:
                 pass
                 # 登录成功, 跳转到首页
@@ -30,5 +32,19 @@ def login(request):
 
 
 def register(request):
-    return render(request, 'register.html')
-
+    if request.method == 'GET':
+        return render(request, 'register.html')
+    elif request.method == 'POST':
+        username = request.POST.get('name')
+        password = request.POST.get('password')
+        if username == '' :
+            return render(request, 'register.html', {'inf' : ' 用户名不能为空'})
+        elif password == '' :
+            return render(request, 'register.html', {'inf' : ' 密码不能为空'})
+        # 检测用户名是否已在数据库中
+        elif username in user_pswd.keys() :
+            return render(request, 'register.html', {'inf' : '用户名已被注册'})
+        else :
+            # 将用户加入数据库
+            user_pswd[username] = password
+            return render(request, 'register.html', {'inf' : '注册成功'})
