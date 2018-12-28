@@ -60,7 +60,7 @@ def home(request):
 
 
 # 个人信息界面 打印
-def user_info(request):
+def user_info(request, user_id):
     if request.method == 'GET':
         return render(request,'person_imformation.html', {'form' : user_imformation})
     elif request.method == 'POST':
@@ -68,4 +68,9 @@ def user_info(request):
 
 
 
-# 
+# 板块内部
+def plate(request, plate_id):
+    pass
+
+def theme(request, plate_id, theme_id):
+    pass
