@@ -48,3 +48,12 @@ def register(request):
             # 将用户加入数据库
             user_pswd[username] = password
             return render(request, 'register.html', {'inf' : '注册成功'})
+
+# 主界面
+def forum(request):
+    
+    pass
+
+# 个人信息界面 (自己的和他人的，自己的可以修改)
+
+# 
