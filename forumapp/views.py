@@ -49,9 +49,9 @@ def register(request):
             user_pswd[username] = password
             return render(request, 'register.html', {'inf' : '注册成功'})
 
-# 主界面
-def forum(request):
-    
+# 主界面, 传入user变量,代表是否已经认证, 传入'boards'变量
+def home(request):
+    return render(request, 'home.html', {'boards' : {}})
     pass
 
 # 个人信息界面 (自己的和他人的，自己的可以修改)

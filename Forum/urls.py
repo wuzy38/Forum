@@ -20,7 +20,8 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Forum/index/', views.test),
-    path('Forum/register/', views.register),
-    path('Forum/login/', views.login),
+    path('Forum/test/', views.test, name='test'),
+    path('Forum/', views.home, name='home'),
+    path('Forum/register/', views.register, name = "register"),
+    path('Forum/login/', views.login, name = 'login'),
 ]

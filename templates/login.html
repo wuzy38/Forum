@@ -17,7 +17,8 @@
     <!-- {{var}} 表示打印变量 err_inf是从views中传过来的变量 -->
     {{ err_inf }}
     <br>
-    <a href="http://127.0.0.1:8000/Forum/register">立即注册</a>
+    <!-- {% url 'register' %} 指的是urls.py中name='register'的url -->
+    <a href="{% url 'register' %}">立即注册</a>
 </form>
 </body>
 </html>
