@@ -75,12 +75,30 @@ class sql():
                 return False
         return True
 
-    def check_user(self, user_name):
+    def check_user(self, user_account):
         """检查用户是否在user表中"""
-        data = self.select_from('user', '*', 'where user_account='+str(user_name))
+        data = self.select_from('user', '*', 'where user_account='+str(user_account))
         if len(data) > 0:
             return True
         return False
+
+    def get_user_info(self, user_name):
+        """获取用户的信息，依次为id, name, register_time, grade, user_account"""
+        data = self.select_from('user', '*', 'where user_name='+str(user_name))
+        dic = {}
+        if len(data > 0):
+            dic['id'] = data[0]
+            dic['name'] = data[1]
+            dic['register_time'] = data[2]
+            dic['grade'] = data[3]
+            dic['user_account'] = data[4]
+        return dic
+
+    def get_linked_num(self, id):
+        """获取被关注的数目"""
+        data = self.select_from('link', '*', 'where user_linked_id='+str(id))
+        return len(data)
+
 
 
 sql_p = sql()
@@ -100,4 +118,4 @@ print(sql_p.select_from('plate'))
 
 sql_p.insert_into('user', (1, '徐立', '1997-12-21 19:00:01', 0, '519', '519519519'))
 print(sql_p.select_from('user'))
-print(sql_p.check_user(518))
+print(sql_p.check_user(519))
