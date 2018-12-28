@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>theme</title>
+</head>
+<body>
+    <h1>{{plate_name}}</h1>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>time</th>
+            <th>user name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t,name in theme %}
+        <tr>
+            <td>
+                {{ t.id }}
+            </td>
+            <td>
+                {{t.name}}<br>
+                <small style="color: #888">{{t.themecol}}</small>
+            </td>
+            <td>
+                {{t.theme_time}}
+            </td>
+            <td>
+                {{name}}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

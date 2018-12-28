@@ -25,5 +25,6 @@ urlpatterns = [
     path('Forum/test/', views.test, name='test'),
     path('Forum/', views.home, name='home'),
     path('Forum/register/', views.register, name = "register"),
-    path('Forum/login/', views.login, name = 'login')
+    path('Forum/login/', views.login, name = 'login'),
+    path('Forum/<int:plate_id>/<int:theme_id>/',views.theme,name = 'theme')
 ]

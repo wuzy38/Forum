@@ -72,4 +72,8 @@ def plate(request, plate_id):
     pass
 
 def theme(request, plate_id, theme_id):
-    pass
+    if request.method == 'GET':
+        
+        return render(request,'theme.html')
+    elif request.method == 'POST':
+        pass
