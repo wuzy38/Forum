@@ -7,7 +7,7 @@
 
 <body>
 
-{% if user %}
+{% if not user %}
     <form method="POST">
         <button type="submit" name="login" >登录</button>
         <button type="submit" name="register" >注册</button>
@@ -16,20 +16,18 @@
 <table>
     <thead>
         <tr>
-            <th>Board</th>
+            <th>Plate</th>
+            <th>Theme Size</th>
         </tr>
     </thead>
     <tbody>
-        {% for board in boards %}
+        {% for plate in plates %}
         <tr>
             <td>
-                <a href="{% url 'board_topics' %}">{{ board.name }}</a>
+                <a href="{% url 'plate' plate.plate_id %}">{{ plate.plate_name }}</a>
             </td>
             <td >
-                {{ board.get_posts_count }}
-            </td>
-            <td >
-                {{ board.topics.count }}
+                {{ plate.plate_size }}
             </td>
         </tr>
         {% endfor %}

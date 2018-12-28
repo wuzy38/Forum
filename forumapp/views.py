@@ -52,9 +52,12 @@ def register(request):
             return render(request, 'register.html', {'inf' : '注册成功'})
 
 
-# 主界面, 传入user变量,代表是否已经认证, 传入'boards'变量
+# 主界面, 传入当前用户user变量,代表是否已经认证, 传入'boards'变量
 def home(request):
-    return render(request, 'home.html', {'boards' : {}})
+    user = None
+    plates = [{'plate_id' : 1, 'plate_name':'python', 'plate_size' : 1}]
+    content = {'user' : user, 'plates' : plates}
+    return render(request, 'home.html', content)
     pass
 
 
@@ -69,11 +72,29 @@ def user_info(request, user_id):
 
 # 板块内部
 def plate(request, plate_id):
-    pass
+    # 如果plate_id不存在，重定向回主页
+    if False:
+        return HttpResponseRedirect('/Forum/')
+    if request.method == 'GET' :
+        # 根据plate_id获取plate_name 和对应的theme
+        plate_name = 'python'
+        themes = [{'theme_id' : 1, 'theme_name' : 'Django'}]
+        return render(request, 'plate.html', {'plate_id' : plate_id , 'plate_name' : plate_name, 'themes' : themes})
+    else:
+        # 写主题, 添加到theme表中
+        theme_content = request.POST.get('theme_content')
+        pass
 
+#贴子
 def theme(request, plate_id, theme_id):
-    if request.method == 'GET':
-        
-        return render(request,'theme.html')
-    elif request.method == 'POST':
+    # 如果plate_id不存在或者plate_id下没有theme_id, 重定向回主页
+    if False:
+        return HttpResponseRedirect('/Forum/')
+    if request.method == 'GET' :
+        # 根据theme_id获取 theme的内容和对应的replys
+        theme = None
+        replys = None
+        return render(request, 'plate.html', {'theme' : theme, 'replys' : replys})
+    else:
+        # 写回复, 添加到reply表中
         pass
