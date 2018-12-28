@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>板块</title>
+</head>
+
+<body>
+
+{% if not user %}
+    <form method="POST">
+        <button type="submit" name="login" >登录</button>
+        <button type="submit" name="register" >注册</button>
+    </form>
+{% endif %}
+
+{{plate_name}}
+
+<form method="POST">
+    <input type='text' name='theme'><br>
+    <button type="submit" name="finished article"> 完成 </button>
+    <br>
+</form>
+
+{% for theme in themes %}
+    {{ theme.user_id }} &nbsp;:&nbsp;
+    <a href="{% url 'theme' plate_id theme.theme_id %}">{{ theme.theme_name }}</a>
+    <br>
+{% endfor %}
+
+</body>
+</html>
