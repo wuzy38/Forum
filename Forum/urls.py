@@ -23,4 +23,5 @@ urlpatterns = [
     path('Forum/index/', views.test),
     path('Forum/register/', views.register),
     path('Forum/login/', views.login),
+    path('Forum/user_info',views.user_info)
 ]

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="UTF-8">
+        <title> 用户信息 </title>
+    </head>
+    <body>
+        <table border="1">
+        <!-- form是views传过来的字典变量, 注意items后面没有括号 -->
+        {%for key, value in form.items %}
+            <tr>
+                <td>{{key}} :</td>
+                <td>{{value}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <a href="http://127.0.0.1:8000/Forum">返回</a>
+    </body>
+</html>

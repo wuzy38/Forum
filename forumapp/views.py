@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse, HttpResponseRedirect
 # Create your views here.
 user_pswd = {"user1":'pswd1', 'user2':'pswd2'}
+user_imformation = {'name':'xiaojz','age':'19','where':'guangz','school':'sysu'} #测试用户信息
+
 
 def test(request):
     # return HttpResponse("Hello World!!")
@@ -51,9 +53,16 @@ def register(request):
 
 # 主界面
 def forum(request):
-    
     pass
 
-# 个人信息界面 (自己的和他人的，自己的可以修改)
+
+# 个人信息界面 打印
+def user_info(request):
+    if request.method == 'GET':
+        return render(request,'person_imformation.html', {'form' : user_imformation})
+    elif request.method == 'POST':
+        pass
+
+
 
 # 
