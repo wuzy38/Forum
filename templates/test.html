@@ -13,10 +13,11 @@
             <td>密码</td>
         </tr>
         </thead>
-        {%for line in form%}
+        <!-- form是views传过来的字典变量, 注意items后面没有括号 --> 
+        {%for name, password in form.items %}
             <tr>
-                <td>{{line.name}}</td>
-                <td>{{line.password}}</td>
+                <td>{{name}}</td>
+                <td>{{password}}</td>
             </tr>
         {% endfor %}
     </table>

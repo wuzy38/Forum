@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Forum/index/', views.test),
     path('Forum/register/', views.register),
+    path('Forum/login/', views.login),
 ]

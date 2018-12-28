@@ -85,9 +85,12 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE':'django.db.backends.mysql',
         'NAME':'sales',      # 数据库的名称
-        'USER':'wuzy',
-        'PASSWORD':'519519519',
-        'HOST':'172.18.35.138',
+        # 'USER':'wuzy',
+        # 'PASSWORD':'519519519',
+        # 'HOST':'172.18.35.138',
+        'USER':'root',
+        'PASSWORD':'',
+        'HOST':'127.0.0.1',
         'PORT':'3306',
     }
 }
