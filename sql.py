@@ -83,7 +83,7 @@ class sql():
         return False
 
     def get_user_info(self, user_name):
-        """获取用户的信息，依次为id, name, register_time, grade, user_account"""
+        """获取用户的信息的字典，依次为id, name, register_time, grade, user_account"""
         data = self.select_from('user', '*', 'where user_name='+str(user_name))
         dic = {}
         if len(data > 0):
@@ -99,7 +99,18 @@ class sql():
         data = self.select_from('link', '*', 'where user_linked_id='+str(id))
         return len(data)
 
-
+    def get_all_theme(self, plate_id):
+        """返回一个版块所有的主题dict的list，依次顺序为theme_id, theme_name, theme_time, plate_id, user_id"""
+        data = self.select_from('theme', '*', 'where plate_id='+str(plate_id))
+        res = []
+        for i in range(len(data)):
+            tmp_dict = {'theme_id':data[i][0],
+                        'theme_name':data[i][1],
+                        'theme_time':data[i][2],
+                        'plate_id':data[i][3],
+                        'user_id':data[i][4]}
+            res.append(tmp_dict)
+        return data
 
 sql_p = sql()
 data = sql_p.select_from("plate")
