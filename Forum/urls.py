@@ -21,7 +21,7 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Forum/index/', views.test),
-    path('Forum/user_info/<user_id>/',views.user_info, name='user_inf'),
+    path('Forum/user_info/<int:user_id>/',views.user_info, name='user_inf'),
     path('Forum/test/', views.test, name='test'),
     path('Forum/', views.home, name='home'),
     path('Forum/register/', views.register, name = "register"),
