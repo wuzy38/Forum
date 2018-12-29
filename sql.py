@@ -149,11 +149,36 @@ class sql():
         return res
 
     def create_user(self, account, password, user_name):
+        """创建用户，输入账号、密码、用户名即可"""
         data = self.select_from('user')
         num = len(data)
-        time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(time_str)
-        self.insert_into('user', (num, user_name, time_str, 0, account, password))
+        time_str = self.get_time()
+        return self.insert_into('user', (num, user_name, time_str, 0, account, password))
+
+    def get_reply(self, theme_id):
+        """获取指定theme_id下的所有回复，为字典的list，依次属性为reply_id, user_id, content, reply_time, theme_id"""
+        data = self.select_from('reply', '*', 'where theme_id='+str(theme_id))
+        res = []
+        for i in range(len(data)):
+            tmp_dic = {'reply_id':data[0],
+                       'user_id':data[1],
+                       'content':data[2],
+                       'reply_time':data[3],
+                       'theme_id':data[4]}
+            res.append(tmp_dic)
+        return res
+
+    def do_reply(self, user_id, content, theme_id):
+        """回复一个主题，传入用户id，内容，主题号"""
+        data = self.select_from('reply')
+        reply_id = len(data)
+        datetime_str = self.get_time()
+        return self.insert_into('reply', (reply_id, user_id, content, datetime, theme_id))
+
+
+    def get_time(self):
+        """获取当前时间格式"""
+        return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
 generate_data()
