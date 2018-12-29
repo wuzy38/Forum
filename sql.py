@@ -189,7 +189,7 @@ class sql():
         datetime_str = self.get_time()
         data = self.select_from('theme')
         theme_id = len(data)
-        return self.insert_into('theme', (theme_id, theme_name, datetime_str, plate_id, user_id))
+        return self.insert_into('theme', (theme_id, "'"+theme_name+"'", datetime_str, plate_id, user_id))
 
     def get_user_id_by_account(self, user_account):
         """通过用户id获取用户的account"""
