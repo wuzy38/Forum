@@ -124,7 +124,7 @@ class sql():
         """检查用户是否在user表中"""
         data = self.select_from('user', '*', "where user_account='"+str(user_account)+"'")
         if len(data) > 0:
-            return data[5]
+            return data[0][5]
         return ()
 
     def get_user_info(self, user_name):
