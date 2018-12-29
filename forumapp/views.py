@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse, HttpResponseRedirect
+from sql import sql_p
+
 # Create your views here.
 user_pswd = {"user1":'pswd1', 'user2':'pswd2'}
 user_imformation = {'name':'xiaojz','age':'19','where':'guangz','school':'sysu'} #测试用户信息
@@ -73,7 +75,8 @@ def user_info(request, user_id):
 # 板块内部
 def plate(request, plate_id):
     # 如果plate_id不存在，重定向回主页
-    if False:
+    plate_id=4
+    if sql_p.select_from('plate', '*', 'where plate_id=' + str(plate_id)):
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
         # 根据plate_id获取plate_name 和对应的theme
