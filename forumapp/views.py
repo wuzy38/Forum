@@ -69,7 +69,15 @@ def home(request):
 # 个人信息界面 打印
 def user_info(request, user_id):
     if request.method == 'GET':
-        return render(request,'person_imformation.html', {'form' : user_imformation})
+        user_imformation = {}
+        data = sql_p.select_from('user','*','where user_id='+str(user_id))
+        if len(data)>0:
+            user_imformation['id'] = data[0]
+            user_imformation['name'] = data[1]
+            user_imformation['register_time'] = data[2]
+            user_imformation['grade'] = date[3]
+            user_imformation['user_account'] =data[4]
+            return render(request,'person_imformation.html', {'form' : user_imformation})
     elif request.method == 'POST':
         pass
 
