@@ -113,9 +113,15 @@ def theme(request, theme_id):
     if request.method == 'GET' :
         # 根据theme_id获取 theme的内容和对应的replys
         theme = sql_p.select_from('theme','*','where theme_id='+str(theme_id))
-        replys = get_reply(theme_id)
+        replys = sql_p.get_reply(theme_id)
         return render(request, 'plate.html', {'theme_name' : theme[1], 'replys' : replys})
     else:
         # 写回复, 添加到reply表中
+        reply_content = request.POST.get('reply')
+        account = request.session.has_key('user_account')
+        data = sql_p.select_from('user','*','where user_account='+str(account))
+        user_id = data[0]
+        sql_p.do_reply(user_id,reply_content,theme_id)
         pass
+
         
