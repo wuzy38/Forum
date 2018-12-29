@@ -25,7 +25,7 @@ def generate_data():
 
 class sql():
     def __init__(self):
-        #conn = pymysql.connect(host="localhost", user="wuzy", password="519519519", db="forum")
+        #conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
         self.conn = pymysql.connect(host="localhost", user="root", password="88720073", db="forum")
 
     def __del__(self):
