@@ -196,7 +196,7 @@ class sql():
         """通过用户id获取用户的account"""
         data = self.select_from('user', '*', "where user_account='" + str(user_account)+"'")
         if len(data) > 0:
-            return data[0]
+            return data[0][0]
         return None
 
     def get_time(self):
