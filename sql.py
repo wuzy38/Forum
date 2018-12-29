@@ -175,6 +175,13 @@ class sql():
         datetime_str = self.get_time()
         return self.insert_into('reply', (reply_id, user_id, content, datetime, theme_id))
 
+    def raise_theme(self, theme_name, plate_id, user_id):
+        """发起一个主题，传入主题名、版块id和用户id"""
+        datetime_str = self.get_time()
+        data = self.select_from('theme')
+        theme_id = len(data)
+        return self.insert_into('theme', (theme_id, theme_name, datetime_str, plate_id, user_id))
+
 
     def get_time(self):
         """获取当前时间格式"""
