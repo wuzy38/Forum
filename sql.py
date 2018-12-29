@@ -25,7 +25,7 @@ def generate_data():
 
 class sql():
     def __init__(self):
-        #conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
+        self.conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
         self.conn = pymysql.connect(host="localhost", user="root", password="88720073", db="forum")
 
     def __del__(self):
@@ -119,7 +119,7 @@ class sql():
                         'plate_id':data[i][3],
                         'user_id':data[i][4]}
             res.append(tmp_dict)
-        return data
+        return res
 
 sql_p = sql()
 data = sql_p.select_from("plate")
