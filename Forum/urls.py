@@ -27,5 +27,5 @@ urlpatterns = [
     path('Forum/register/', views.register, name = "register"),
     path('Forum/login/', views.login, name = 'login'),
     path('Forum/plate/<int:plate_id>', views.plate, name = 'plate'),
-    path('Forum/theme/<int:plate_id>/<int:theme_id>', views.theme, name = 'theme'),
+    path('Forum/theme/<int:theme_id>', views.theme, name = 'theme'),
 ]

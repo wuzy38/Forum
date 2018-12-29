@@ -17,14 +17,14 @@
 {{plate_name}}
 
 <form method="POST">
-    <input type='text' name='theme'><br>
+    <input type='textarea' name='theme'><br>
     <button type="submit" name="finished article"> 完成 </button>
     <br>
 </form>
 
 {% for theme in themes %}
     {{ theme.user_id }} &nbsp;:&nbsp;
-    <a href="{% url 'theme' plate_id theme.theme_id %}">{{ theme.theme_name }}</a>
+    <a href="{% url 'theme' theme.theme_id %}">{{ theme.theme_name }}</a>
     <br>
 {% endfor %}
 

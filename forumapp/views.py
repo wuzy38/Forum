@@ -79,15 +79,15 @@ def plate(request, plate_id):
         # 根据plate_id获取plate_name 和对应的theme
         plate_name = 'python'
         themes = [{'theme_id' : 1, 'theme_name' : 'Django'}]
-        return render(request, 'plate.html', {'plate_id' : plate_id , 'plate_name' : plate_name, 'themes' : themes})
+        return render(request, 'plate.html', {'plate_name' : plate_name, 'themes' : themes})
     else:
         # 写主题, 添加到theme表中
         theme_content = request.POST.get('theme_content')
         pass
 
 #贴子
-def theme(request, plate_id, theme_id):
-    # 如果plate_id不存在或者plate_id下没有theme_id, 重定向回主页
+def theme(request, theme_id):
+    # 如果theme_id不存在, 重定向回主页
     if False:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
