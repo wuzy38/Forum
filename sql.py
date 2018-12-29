@@ -1,4 +1,5 @@
 import pymysql
+import datetime
 
 def test():
     conn = pymysql.connect(host="localhost", user="root", password="88720073", db="forum")
@@ -10,23 +11,23 @@ def test():
             data = cursor.fetchall()
             print(data)
             conn.commit()
-            data = sql_p.select_from("plate")
+            data = conn.select_from("plate")
             print(str((1, 2)))
-            sql_p.insert_into('plate', ('4', '中国'))
-            print(sql_p.select_from('plate'))
+            conn.insert_into('plate', ('4', '中国'))
+            print(conn.select_from('plate'))
             print(str(("1'2'", '3', 123)))
-            sql_p.delete_from('plate', 'where plate_id=4')
-            print(sql_p.select_from('plate'))
+            conn.delete_from('plate', 'where plate_id=4')
+            print(conn.select_from('plate'))
 
-            print(sql_p.update('plate', "plate_name='美国'", 'where plate_id=3'))
-            print(sql_p.select_from('plate'))
-            sql_p.insert_into('plate', ('1', 'NULL'))
+            print(conn.update('plate', "plate_name='美国'", 'where plate_id=3'))
+            print(conn.select_from('plate'))
+            conn.insert_into('plate', ('1', 'NULL'))
 
-            print(sql_p.select_from('plate'))
+            print(conn.select_from('plate'))
 
-            sql_p.insert_into('user', (1, '徐立', '1997-12-21 19:00:01', 0, '519', '519519519'))
-            print(sql_p.select_from('user'))
-            print(sql_p.check_user(519))
+            conn.insert_into('user', (1, '徐立', '1997-12-21 19:00:01', 0, '519', '519519519'))
+            print(conn.select_from('user'))
+            print(conn.check_user(519))
 
     finally:
         conn.close()
@@ -34,9 +35,18 @@ def test():
 
 def generate_data():
     s = sql()
+
+    s.insert_into('plate', ('1', '中山大学', 0))
+    s.insert_into('plate', ('2', '数据库', 0))
     table_name = 'user'
-    for i in range(50):
+    for i in range(9):
         s.insert_into(table_name, (i, 'name'+str(i), '2018-12-29 00:05:03', i, 'acount'+str(i), 'password'+str(i)))
+
+    table_name = 'theme'
+    for i in range(9):
+        s.insert_into(table_name, (i, '主题'+str(i), '2018-12-29 00:05:03', 1, str(i)))
+
+    s.create_user('acount999', 'password999', 'user_name999')
 
 
 
@@ -138,8 +148,12 @@ class sql():
             res.append(tmp_dict)
         return res
 
+    def create_user(self, account, password, user_name):
+        data = self.select_from('user')
+        num = len(data)
+        time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(time_str)
+        self.insert_into('user', (num, user_name, time_str, 0, account, password))
 
 
-sql_p = sql()
-sql_p.insert_into('plate', ('1', '中山大学', 0))
-sql_p.insert_into('plate', ('2', '数据库', 0))
+generate_data()
