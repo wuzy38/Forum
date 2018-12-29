@@ -70,7 +70,9 @@ class sql():
                 print('SELECT FAILED!\n Error message:', str(e))
                 self.conn.rollback()
                 return ()
-        return data
+        if data:
+            return data
+        return ()
 
     def insert_into(self, table_name, tuple):
         """插入表信息，成功返回True，失败返回False"""
