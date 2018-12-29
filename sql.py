@@ -10,6 +10,23 @@ def test():
             data = cursor.fetchall()
             print(data)
             conn.commit()
+            data = sql_p.select_from("plate")
+            print(str((1, 2)))
+            sql_p.insert_into('plate', ('4', '中国'))
+            print(sql_p.select_from('plate'))
+            print(str(("1'2'", '3', 123)))
+            sql_p.delete_from('plate', 'where plate_id=4')
+            print(sql_p.select_from('plate'))
+
+            print(sql_p.update('plate', "plate_name='美国'", 'where plate_id=3'))
+            print(sql_p.select_from('plate'))
+            sql_p.insert_into('plate', ('1', 'NULL'))
+
+            print(sql_p.select_from('plate'))
+
+            sql_p.insert_into('user', (1, '徐立', '1997-12-21 19:00:01', 0, '519', '519519519'))
+            print(sql_p.select_from('user'))
+            print(sql_p.check_user(519))
 
     finally:
         conn.close()
@@ -19,13 +36,13 @@ def generate_data():
     s = sql()
     table_name = 'user'
     for i in range(50):
-        s.insert_into(table_name, (i, ))
+        s.insert_into(table_name, (i, 'name'+str(i), '2018-12-29 00:05:03', i, 'acount'+str(i), 'password'+str(i)))
 
 
 
 class sql():
     def __init__(self):
-        self.conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
+        # self.conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
         self.conn = pymysql.connect(host="localhost", user="root", password="88720073", db="forum")
 
     def __del__(self):
@@ -121,21 +138,8 @@ class sql():
             res.append(tmp_dict)
         return res
 
+
+
 sql_p = sql()
-data = sql_p.select_from("plate")
-print(str((1,2)))
-sql_p.insert_into('plate', ('4', '中国'))
-print(sql_p.select_from('plate'))
-print(str(("1'2'",'3',123)))
-sql_p.delete_from('plate', 'where plate_id=4')
-print(sql_p.select_from('plate'))
-
-print(sql_p.update('plate', "plate_name='美国'", 'where plate_id=3'))
-print(sql_p.select_from('plate'))
-sql_p.insert_into('plate', ('1', 'NULL'))
-
-print(sql_p.select_from('plate'))
-
-sql_p.insert_into('user', (1, '徐立', '1997-12-21 19:00:01', 0, '519', '519519519'))
-print(sql_p.select_from('user'))
-print(sql_p.check_user(519))
+sql_p.insert_into('plate', ('1', '中山大学', 0))
+sql_p.insert_into('plate', ('2', '数据库', 0))
