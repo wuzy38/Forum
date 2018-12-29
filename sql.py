@@ -61,7 +61,7 @@ class sql():
     def select_from(self, table_name, attribute='*', predicate=''):
         """获得table_name信息,返回元组，失败返回None"""
         with self.conn.cursor() as cursor:
-            sql_lang = "SELECT " + attribute + "FROM " + table_name + ' ' + predicate
+            sql_lang = "SELECT " + str(attribute) + " FROM " + str(table_name) + ' ' + str(predicate)
             try:
                 cursor.execute(sql_lang)
                 self.conn.commit()
@@ -69,7 +69,7 @@ class sql():
             except Exception as e:
                 print('SELECT FAILED!\n Error message:', str(e))
                 self.conn.rollback()
-                return None
+                return ()
         return data
 
     def insert_into(self, table_name, tuple):
