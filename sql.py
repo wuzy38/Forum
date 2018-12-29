@@ -83,6 +83,7 @@ class sql():
                 self.conn.commit()
             except Exception as e:
                 print('INSERT FAILED!\n Error message:', str(e))
+                print(sql_lang)
                 self.conn.rollback()
                 return False
         return True
@@ -182,7 +183,7 @@ class sql():
         data = self.select_from('reply')
         reply_id = len(data)
         datetime_str = self.get_time()
-        return self.insert_into('reply', (reply_id, user_id, content, datetime, theme_id))
+        return self.insert_into('reply', (reply_id, user_id, "'"+content+"'", datetime, theme_id))
 
     def raise_theme(self, theme_name, plate_id, user_id):
         """发起一个主题，传入主题名、版块id和用户id"""
