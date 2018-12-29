@@ -106,13 +106,13 @@ def plate(request, plate_id):
 #贴子
 def theme(request, theme_id):
     # 如果theme_id不存在, 重定向回主页
-    if False:
+    if len(sql_p.select_from('theme','*','where theme_id='+str(theme_id)))==0:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
         # 根据theme_id获取 theme的内容和对应的replys
-        theme = None
-        replys = None
-        return render(request, 'plate.html', {'theme' : theme, 'replys' : replys})
+        theme = sql_p.select_from('theme','*','where theme_id='+str(theme_id))
+        replys = get_reply(theme_id)
+        return render(request, 'plate.html', {'theme_name' : theme[1], 'replys' : replys})
     else:
         # 写回复, 添加到reply表中
-        pass
+        

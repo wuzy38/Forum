@@ -24,10 +24,12 @@
 </form>
 
 {% for reply in replys %}
-    {{ reply.user_id }} &nbsp;:&nbsp;
-    {{ reply.content }}
+    {{ reply['user_id'] }} &nbsp;:&nbsp;
+    {{ reply['content'] }}
     <br>
 {% endfor %}
+
+
 
 </body>
 </html>
