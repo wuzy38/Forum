@@ -46,7 +46,10 @@ def generate_data():
     for i in range(9):
         s.insert_into(table_name, (i, '主题'+str(i), '2018-12-29 00:05:03', 1, str(i)))
 
-    s.create_user('acount999', 'password999', 'user_name999')
+    for i in range(9):
+        for j in range(9):
+            s.do_reply(i, "asdasdsadada", j)
+    # s.create_user('acount999', 'password999', 'user_name999')
 
 
 
@@ -170,11 +173,11 @@ class sql():
         data = self.select_from('reply', '*', 'where theme_id='+str(theme_id))
         res = []
         for i in range(len(data)):
-            tmp_dic = {'reply_id':data[0],
-                       'user_id':data[1],
-                       'content':data[2],
-                       'reply_time':data[3],
-                       'theme_id':data[4]}
+            tmp_dic = {'reply_id':data[i][0],
+                       'user_id':data[i][1],
+                       'content':data[i][2],
+                       'reply_time':data[i][3],
+                       'theme_id':data[i][4]}
             res.append(tmp_dic)
         return res
 
