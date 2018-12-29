@@ -88,7 +88,10 @@ def home(request):
 # 板块内部
 def plate(request, plate_id):
     # 如果plate_id不存在，重定向回主页
-    # plate_id=0
+    if not request.session.has_key('user_account') :
+        user = None
+    else:
+        user = request.session['user_account']
     plate_name = sql_p.select_from('plate', 'plate_name ', 'where plate_id=' + str(plate_id))
     print(plate_name)
     if len(plate_name) == 0:
@@ -101,13 +104,23 @@ def plate(request, plate_id):
     else:
         # 写主题, 添加到theme表中
         theme_content = request.POST.get('theme_content')
-        sql_p.insert_into('theme', )
-        pass
+        if len(theme_content) == 0:
+            err_inf = "不能发送空消息"
+        elif user == None:
+            err_inf = "请先登录"
+        else :
+            sql_p.insert_into('theme', )
+        
+
 
 
 #贴子
 def theme(request, theme_id):
     # 如果theme_id不存在, 重定向回主页
+    if not request.session.has_key('user_account') :
+        user = None
+    else:
+        user = request.session['user_account']
     if len(sql_p.select_from('theme','*','where theme_id='+str(theme_id)))==0:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
