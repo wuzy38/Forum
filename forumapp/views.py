@@ -28,7 +28,7 @@ def login(request):
                 # 登录成功, 跳转到首页
                 # 重定向, 跳转到另一个网页，即'ip:port/Forum/index/'
                 # 若定向到当前页面的子页面, 则不需要前面的'/'.
-                return redirect('/Forum/')
+                return HttpResponseRedirect('/Forum/')
             else:
                 # 第三个参数代表传给html的数据, 在html中err_inf代表值为'密码错误'的变量
                 return render(request, 'login.html', {'err_inf' : '密码错误'})
@@ -74,7 +74,10 @@ def user_info(request, user_id):
 
 # 主界面, 传入当前用户user变量,代表是否已经认证, 传入'plates'变量
 def home(request):
-    user = None
+    if not request.session.has_key('user_account') :
+        user = None
+    else:
+        user = request.session['user_account']
     plate_datas = sql_p.select_from('plate')
     print(plate_datas)
     plates = [{'plate_id' : plate_data[0], 'plate_name':plate_data[1], 'plate_size' : plate_data[2]} for plate_data in plate_datas]
@@ -114,4 +117,5 @@ def theme(request, theme_id):
         return render(request, 'plate.html', {'theme_name' : theme[1], 'replys' : replys})
     else:
         # 写回复, 添加到reply表中
+        pass
         
