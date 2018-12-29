@@ -120,6 +120,13 @@ class sql():
             return True
         return False
 
+    def get_password_by_account(self, user_account):
+        """检查用户是否在user表中"""
+        data = self.select_from('user', '*', "where user_account='"+str(user_account)+"'")
+        if len(data) > 0:
+            return data[5]
+        return ()
+
     def get_user_info(self, user_name):
         """获取用户的信息的字典，依次为id, name, register_time, grade, user_account"""
         data = self.select_from('user', '*', "where user_name='"+str(user_name)+ "'")
