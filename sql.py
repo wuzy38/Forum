@@ -182,3 +182,4 @@ class sql():
 
 
 generate_data()
+sql_p = sql()

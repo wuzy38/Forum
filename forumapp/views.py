@@ -21,14 +21,14 @@ def login(request):
         username = request.POST.get('name')
         password = request.POST.get('password')
         # 在数据库中寻找用户名
-        if username in user_pswd.keys() :
-            if user_pswd[username] == password:
-                pass
-                # request.session['user_id'] = 
+        if sql_p.check_user(username) :
+            pswd = sql_p.select_from('user', 'user_password ', 'where user_account=' + username)[0][0]
+            if pswd == password:
+                request.session['user_account'] = username
                 # 登录成功, 跳转到首页
                 # 重定向, 跳转到另一个网页，即'ip:port/Forum/index/'
                 # 若定向到当前页面的子页面, 则不需要前面的'/'.
-                return HttpResponseRedirect('/Forum/')
+                return redirect('/Forum/')
             else:
                 # 第三个参数代表传给html的数据, 在html中err_inf代表值为'密码错误'的变量
                 return render(request, 'login.html', {'err_inf' : '密码错误'})
@@ -47,13 +47,12 @@ def register(request):
         elif password == '' :
             return render(request, 'register.html', {'inf' : ' 密码不能为空'})
         # 检测用户名是否已在数据库中
-        elif username in user_pswd.keys() :
+        elif sql_p.check_user(username) :
             return render(request, 'register.html', {'inf' : '用户名已被注册'})
         else :
             # 将用户加入数据库
-            user_pswd[username] = password
+            sql_p.create_user(username, password, username)
             return render(request, 'register.html', {'inf' : '注册成功'})
-
 
 
 
