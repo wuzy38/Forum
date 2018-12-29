@@ -16,14 +16,15 @@
 
 <form method="POST">
     {% csrf_token %}
-    <input type='text' name='reply'><br>
-    <button type="submit" name="finished reply"> 完成 </button>
+    <textarea style="width:300px;height:100px;" name='theme_content'></textarea><br>
+    <button type="submit" name="finished article"> 完成 </button>
+    {{err_inf}}
     <br>
 </form>
 
 {% for reply in replys %}
-    {{ reply['user_id'] }} &nbsp;:&nbsp;
-    {{ reply['content'] }}
+    {{ reply.user_id }} &nbsp;:&nbsp;
+    {{ reply.content }}
     <br>
 {% endfor %}
 

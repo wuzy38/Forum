@@ -107,7 +107,6 @@ def plate(request, plate_id):
     else:
         # 写主题, 添加到theme表中
         theme_content = request.POST.get('theme_content')
-        
         err_inf = ''
         if len(theme_content) == 0:
             err_inf = "不能发送空消息"
@@ -139,7 +138,8 @@ def theme(request, theme_id):
         # 根据theme_id获取 theme的内容和对应的replys
         theme = sql_p.select_from('theme','*','where theme_id='+str(theme_id))
         replys = sql_p.get_reply(theme_id)
-        return render(request, 'plate.html', {'theme_name' : theme[1], 'replys' : replys})
+        print(theme[0], replys)
+        return render(request, 'theme.html', {'theme_name' : theme[0][1], 'replys' : replys})
     else:
         # 写回复, 添加到reply表中
         reply_content = request.POST.get('reply')
@@ -153,7 +153,7 @@ def theme(request, theme_id):
             sql_p.do_reply(user_id,reply_content,theme_id)
         theme = sql_p.select_from('theme','*','where theme_id='+str(theme_id))
         replys = sql_p.get_reply(theme_id)
-        return render(request, 'plate.html', {'err_inf': err_inf,'theme_name' : theme[1], 'replys' : replys})
+        return render(request, 'theme.html', {'err_inf': err_inf,'theme_name' : theme[0][1], 'replys' : replys})
         
 
         
