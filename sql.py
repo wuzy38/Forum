@@ -61,7 +61,7 @@ class sql():
     def select_from(self, table_name, attribute='*', predicate=''):
         """获得table_name信息,返回元组，失败返回None"""
         with self.conn.cursor() as cursor:
-            sql_lang = "SELECT " + str(attribute) + " FROM " + str(table_name) + ' ' + str(predicate)
+            sql_lang = "SELECT " + str(attribute) + " FROM " + str(table_name) + ' "' +  predicate + '"'
             try:
                 cursor.execute(sql_lang)
                 self.conn.commit()
