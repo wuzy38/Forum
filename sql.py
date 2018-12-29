@@ -61,7 +61,7 @@ class sql():
     def select_from(self, table_name, attribute='*', predicate=''):
         """获得table_name信息,返回元组，失败返回None"""
         with self.conn.cursor() as cursor:
-            sql_lang = "SELECT " + str(attribute) + " FROM " + str(table_name) + " '" + predicate + "'"
+            sql_lang = "SELECT " + str(attribute) + " FROM " + str(table_name) + " " + predicate
             try:
                 cursor.execute(sql_lang)
                 self.conn.commit()
@@ -115,14 +115,14 @@ class sql():
 
     def check_user(self, user_account):
         """检查用户是否在user表中"""
-        data = self.select_from('user', '*', 'where user_account='+str(user_account))
+        data = self.select_from('user', '*', "where user_account='"+str(user_account)+"'")
         if len(data) > 0:
             return True
         return False
 
     def get_user_info(self, user_name):
         """获取用户的信息的字典，依次为id, name, register_time, grade, user_account"""
-        data = self.select_from('user', '*', 'where user_name='+str(user_name))
+        data = self.select_from('user', '*', "where user_name='"+str(user_name)+ "'")
         dic = {}
         if len(data > 0):
             dic['id'] = data[0]
