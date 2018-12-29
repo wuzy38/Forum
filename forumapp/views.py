@@ -134,8 +134,16 @@ def theme(request, theme_id):
     else:
         # 写回复, 添加到reply表中
         reply_content = request.POST.get('reply')
-        user_id = sql_p.get_user_id_by_account(user)
-        sql_p.do_reply(user_id,reply_content,theme_id)
-        pass
+        if len(reply_content) == 0:
+            err_inf = "不能发送空消息"
+        elif user == None:
+            err_inf = "请先登录"
+        else :
+            user_id = sql_p.get_user_id_by_account(user)
+            sql_p.do_reply(user_id,reply_content,theme_id)
+        theme = sql_p.select_from('theme','*','where theme_id='+str(theme_id))
+        replys = sql_p.get_reply(theme_id)
+        return render(request, 'plate.html', {'err_inf': err_inf,'theme_name' : theme[1], 'replys' : replys})
+        
 
         
