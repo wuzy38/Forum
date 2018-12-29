@@ -75,8 +75,8 @@ def user_info(request, user_id):
 # 板块内部
 def plate(request, plate_id):
     # 如果plate_id不存在，重定向回主页
-    plate_id=4
-    if sql_p.select_from('plate', '*', 'where plate_id=' + str(plate_id)):
+    plate_id=0
+    if len(sql_p.select_from('plate', '*', 'where plate_id=' + str(plate_id))) == 0:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
         # 根据plate_id获取plate_name 和对应的theme
