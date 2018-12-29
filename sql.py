@@ -182,6 +182,12 @@ class sql():
         theme_id = len(data)
         return self.insert_into('theme', (theme_id, theme_name, datetime_str, plate_id, user_id))
 
+    def get_user_id_by_account(self, user_account):
+        """通过用户id获取用户的account"""
+        data = self.select_from('user', '*', 'where user_account=' + str(user_account))
+        if len(data) > 0:
+            return data[0]
+        return None
 
     def get_time(self):
         """获取当前时间格式"""
