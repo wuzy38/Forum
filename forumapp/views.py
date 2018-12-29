@@ -54,10 +54,13 @@ def register(request):
             return render(request, 'register.html', {'inf' : '注册成功'})
 
 
-# 主界面, 传入当前用户user变量,代表是否已经认证, 传入'boards'变量
+# 主界面, 传入当前用户user变量,代表是否已经认证, 传入'plates'变量
 def home(request):
     user = None
-    plates = [{'plate_id' : 1, 'plate_name':'python', 'plate_size' : 1}]
+    plate_datas = sql_p.select_from('plate')
+    print('' plate_datas)
+    plates = [{'plate_id' : plate_data[0], 'plate_name':plate_data[1], 'plate_size' : plate_data[2]} for plate_data in plate_datas]
+    # plates = [{'plate_id' : 1, 'plate_name':'python', 'plate_size' : 1}]
     content = {'user' : user, 'plates' : plates}
     return render(request, 'home.html', content)
     pass
@@ -75,7 +78,7 @@ def user_info(request, user_id):
 # 板块内部
 def plate(request, plate_id):
     # 如果plate_id不存在，重定向回主页
-    plate_id=0
+    # plate_id=0
     if len(sql_p.select_from('plate', '*', 'where plate_id=' + str(plate_id))) == 0:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
