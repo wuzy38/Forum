@@ -14,6 +14,15 @@ def test():
     finally:
         conn.close()
 
+
+def generate_data():
+    s = sql()
+    table_name = 'user'
+    for i in range(50):
+        s.insert_into(table_name, (i, ))
+
+
+
 class sql():
     def __init__(self):
         #conn = pymysql.connect(host="localhost", user="wuzy", password="519519519", db="forum")
