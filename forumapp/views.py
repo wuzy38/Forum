@@ -21,8 +21,11 @@ def login(request):
         username = request.POST.get('name')
         password = request.POST.get('password')
         # 在数据库中寻找用户名
+        print(username)
+        print(sql_p.check_user(username))
         if sql_p.check_user(username) :
-            pswd = sql_p.select_from('user', 'user_password ', 'where user_account=' + username)[0][0]
+            pswd = sql_p.get_password_by_account(username)
+            print(pswd)
             if pswd == password:
                 request.session['user_account'] = username
                 # 登录成功, 跳转到首页
@@ -104,13 +107,19 @@ def plate(request, plate_id):
     else:
         # 写主题, 添加到theme表中
         theme_content = request.POST.get('theme_content')
+        
+        err_inf = ''
         if len(theme_content) == 0:
             err_inf = "不能发送空消息"
         elif user == None:
             err_inf = "请先登录"
         else :
             user_id = sql_p.get_user_id_by_account(user)
+            print('aaaaa')
+            print(theme_content)
+            print(user, user_id)
             sql_p.raise_theme(theme_content, plate_id, user_id)
+            print('bbbcc')
         themes = sql_p.get_all_theme(plate_id)
         return render(request, 'plate.html', {'err_inf': err_inf,'plate_name' : plate_name[0][0], 'themes' : themes})
         
@@ -134,6 +143,7 @@ def theme(request, theme_id):
     else:
         # 写回复, 添加到reply表中
         reply_content = request.POST.get('reply')
+        err_inf = ''
         if len(reply_content) == 0:
             err_inf = "不能发送空消息"
         elif user == None:

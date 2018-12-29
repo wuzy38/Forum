@@ -14,6 +14,7 @@
 {{plate_name}}
 
 <form method="POST">
+    {% csrf_token %}
     <textarea style="width:300px;height:100px;" name='theme_content'></textarea><br>
     <button type="submit" name="finished article"> 完成 </button>
     {{err_inf}}
