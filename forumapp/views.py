@@ -24,10 +24,11 @@ def login(request):
         if username in user_pswd.keys() :
             if user_pswd[username] == password:
                 pass
+                # request.session['user_id'] = 
                 # 登录成功, 跳转到首页
                 # 重定向, 跳转到另一个网页，即'ip:port/Forum/index/'
                 # 若定向到当前页面的子页面, 则不需要前面的'/'.
-                return HttpResponseRedirect('/Forum/index/')
+                return HttpResponseRedirect('/Forum/')
             else:
                 # 第三个参数代表传给html的数据, 在html中err_inf代表值为'密码错误'的变量
                 return render(request, 'login.html', {'err_inf' : '密码错误'})
@@ -54,16 +55,7 @@ def register(request):
             return render(request, 'register.html', {'inf' : '注册成功'})
 
 
-# 主界面, 传入当前用户user变量,代表是否已经认证, 传入'plates'变量
-def home(request):
-    user = None
-    plate_datas = sql_p.select_from('plate')
-    print('' plate_datas)
-    plates = [{'plate_id' : plate_data[0], 'plate_name':plate_data[1], 'plate_size' : plate_data[2]} for plate_data in plate_datas]
-    # plates = [{'plate_id' : 1, 'plate_name':'python', 'plate_size' : 1}]
-    content = {'user' : user, 'plates' : plates}
-    return render(request, 'home.html', content)
-    pass
+
 
 
 # 个人信息界面 打印
@@ -75,29 +67,41 @@ def user_info(request, user_id):
             user_imformation['id'] = data[0]
             user_imformation['name'] = data[1]
             user_imformation['register_time'] = data[2]
-            user_imformation['grade'] = date[3]
+            user_imformation['grade'] = data[3]
             user_imformation['user_account'] =data[4]
             return render(request,'person_imformation.html', {'form' : user_imformation})
     elif request.method == 'POST':
         pass
 
-
+# 主界面, 传入当前用户user变量,代表是否已经认证, 传入'plates'变量
+def home(request):
+    user = None
+    plate_datas = sql_p.select_from('plate')
+    print(plate_datas)
+    plates = [{'plate_id' : plate_data[0], 'plate_name':plate_data[1], 'plate_size' : plate_data[2]} for plate_data in plate_datas]
+    # plates = [{'plate_id' : 1, 'plate_name':'python', 'plate_size' : 1}]
+    content = {'user' : user, 'plates' : plates}
+    return render(request, 'home.html', content)
 
 # 板块内部
 def plate(request, plate_id):
     # 如果plate_id不存在，重定向回主页
     # plate_id=0
-    if len(sql_p.select_from('plate', '*', 'where plate_id=' + str(plate_id))) == 0:
+    plate_name = sql_p.select_from('plate', 'plate_name ', 'where plate_id=' + str(plate_id))
+    print(plate_name)
+    if len(plate_name) == 0:
         return HttpResponseRedirect('/Forum/')
     if request.method == 'GET' :
         # 根据plate_id获取plate_name 和对应的theme
-        plate_name = 'python'
-        themes = [{'theme_id' : 1, 'theme_name' : 'Django'}]
-        return render(request, 'plate.html', {'plate_name' : plate_name, 'themes' : themes})
+        # plate_name = 'python'
+        themes = sql_p.get_all_theme(plate_id)
+        return render(request, 'plate.html', {'plate_name' : plate_name[0][0], 'themes' : themes})
     else:
         # 写主题, 添加到theme表中
         theme_content = request.POST.get('theme_content')
+        sql_p.insert_into('theme', )
         pass
+
 
 #贴子
 def theme(request, theme_id):
