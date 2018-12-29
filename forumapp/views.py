@@ -109,7 +109,10 @@ def plate(request, plate_id):
         elif user == None:
             err_inf = "请先登录"
         else :
-            sql_p.insert_into('theme', )
+            user_id = sql_p.get_user_id_by_account(user)
+            sql_p.raise_theme(theme_content, plate_id, user_id)
+        themes = sql_p.get_all_theme(plate_id)
+        return render(request, 'plate.html', {'err_inf': err_inf,'plate_name' : plate_name[0][0], 'themes' : themes})
         
 
 
@@ -131,9 +134,7 @@ def theme(request, theme_id):
     else:
         # 写回复, 添加到reply表中
         reply_content = request.POST.get('reply')
-        account = request.session.has_key('user_account')
-        data = sql_p.select_from('user','*','where user_account='+str(account))
-        user_id = data[0]
+        user_id = sql_p.get_user_id_by_account(user)
         sql_p.do_reply(user_id,reply_content,theme_id)
         pass
 
