@@ -55,8 +55,8 @@ def generate_data():
 
 class sql():
     def __init__(self):
-        self.conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
-        # self.conn = pymysql.connect(host="localhost", user="root", password="88720073", db="forum")
+        # self.conn = pymysql.connect(host="172.18.35.138", user="wuzy", password="519519519", db="forum")
+        self.conn = pymysql.connect(host="localhost", user="root", password="", db="forum")
 
     def __del__(self):
         self.conn.close()
@@ -143,6 +143,18 @@ class sql():
             dic['user_account'] = data[4]
         return dic
 
+    def get_user_info_by_id(self, user_id):
+        """获取用户的信息的字典，依次为id, name, register_time, grade, user_account"""
+        data = self.select_from('user', '*', "where user_id='"+str(user_id)+ "'")
+        dic = {}
+        if len(data) > 0:
+            dic['user_id'] = data[0][0]
+            dic['user_name'] = data[0][1]
+            dic['register_time'] = data[0][2]
+            dic['grade'] = data[0][3]
+            dic['user_account'] = data[0][4]
+        return dic
+
     def get_linked_num(self, id):
         """获取被关注的数目"""
         data = self.select_from('link', '*', 'where user_linked_id='+str(id))
@@ -207,5 +219,5 @@ class sql():
         return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
-generate_data()
+# generate_data()
 sql_p = sql()

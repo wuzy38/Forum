@@ -3,18 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>论坛</title>
+    <!-- 引入外部样式表bootstrap -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" >    <!-- 内部样式表 -->
+    <style>
+        .r_u
+        {
+            position: fixed; 
+            top: 5px; 
+            right: 5px;
+        } 
+    </style>
 </head>
 
 <body>
 
 {% if not user %}
-    <a href="{% url 'login' %}">登录</a>
+    <a href="{% url 'login' %}" class="r_u" >登录</a>
+{% else %}
+    <a href="{% url 'user_info' user.user_id %}" class="r_u" >{{user.user_account}}</a>
 {% endif %}
+
 <table>
     <thead>
         <tr>
             <th>Plate&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-            <th>Theme Size</th>
+            <th>Themes</th>
         </tr>
     </thead>
     <tbody>

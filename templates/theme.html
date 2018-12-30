@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <title>话题</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        .r_u
+        {
+            position: fixed; 
+            top: 5px; 
+            right: 5px;
+        } 
+    </style>
 </head>
 
 <body>
 
 {% if not user %}
-    <a href="{% url 'login' %}">登录</a>
+    <a href="{% url 'login' %}" class="r_u" >登录</a>
+{% else %}
+    <a href="{% url 'user_info' user.user_id %}" class="r_u" >{{user.user_account}}</a>
 {% endif %}
 
-{{theme_name}}
+<h1> {{theme_name}} </h1>
 
 <form method="POST">
     {% csrf_token %}
-    <textarea style="width:300px;height:100px;" name='theme_content'></textarea><br>
-    <button type="submit" name="finished article"> 完成 </button>
+    <div>
+    <textarea rows="5" name='theme_content' class = "form-control" >  </textarea>
     {{err_inf}}
+    <button type="submit" name="finished article" style="float:right"> 回复 </button>
     <br>
+    </div>
 </form>
 
 {% for reply in replys %}
-    {{ reply.user_id }} &nbsp;:&nbsp;
+    <a href="{% url 'user_info' reply.user_id %}" >{{ reply.user_name }}</a>
+    &nbsp;:&nbsp;
     {{ reply.content }}
     <br>
 {% endfor %}

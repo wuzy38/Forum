@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>板块</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+    <style>
+        .r_u
+        {
+            position: fixed; 
+            top: 5px; 
+            right: 5px;
+        } 
+    </style>
 </head>
 
 <body>
 
 {% if not user %}
-    <a href="{% url 'login' %}">登录</a>
+    <a href="{% url 'login' %}" class="r_u" >登录</a>
+{% else %}
+    <a href="{% url 'user_info' user.user_id %}" class="r_u" >{{user.user_account}}</a>
 {% endif %}
 
-{{plate_name}}
+<h1>{{plate_name}}</h1>
 
 <form method="POST">
     {% csrf_token %}
     <textarea style="width:300px;height:100px;" name='theme_content'></textarea><br>
-    <button type="submit" name="finished article"> 完成 </button>
+    <button type="submit" name="finished article" class="btn btn-primary ml-2"> 发表主题 </button>
     {{err_inf}}
     <br>
 </form>
 
 {% for theme in themes %}
-    {{ theme.user_id }} &nbsp;:&nbsp;
+    <a href="{% url 'user_info' theme.user_id %}" >{{ theme.user_name }}</a>
+    &nbsp;:&nbsp;
     <a href="{% url 'theme' theme.theme_id %}">{{ theme.theme_name }}</a>
     <br>
 {% endfor %}
