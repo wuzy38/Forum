@@ -162,7 +162,7 @@ class sql():
 
     def get_all_theme(self, plate_id):
         """返回一个版块所有的主题dict的list，依次顺序为theme_id, theme_name, theme_time, plate_id, user_id"""
-        data = self.select_from('theme', '*', 'where plate_id='+str(plate_id))
+        data = self.select_from('theme', '*', 'where plate_id='+str(plate_id) + " order by theme_time desc ")
         res = []
         for i in range(len(data)):
             tmp_dict = {'theme_id':data[i][0],
@@ -182,7 +182,7 @@ class sql():
 
     def get_reply(self, theme_id):
         """获取指定theme_id下的所有回复，为字典的list，依次属性为reply_id, user_id, content, reply_time, theme_id"""
-        data = self.select_from('reply', '*', 'where theme_id='+str(theme_id))
+        data = self.select_from('reply', '*', 'where theme_id='+str(theme_id) + " order by reply_time desc ")
         res = []
         for i in range(len(data)):
             tmp_dic = {'reply_id':data[i][0],
@@ -198,6 +198,8 @@ class sql():
         data = self.select_from('reply')
         reply_id = len(data)
         datetime_str = self.get_time()
+        print(data)
+        print(reply_id)
         return self.insert_into('reply', (reply_id+1, user_id, content, datetime_str, theme_id))
 
     def raise_theme(self, theme_name, plate_id, user_id):
@@ -205,6 +207,8 @@ class sql():
         datetime_str = self.get_time()
         data = self.select_from('theme')
         theme_id = len(data)
+        print(data)
+        print(theme_id)
         return self.insert_into('theme', (theme_id, theme_name, datetime_str, plate_id, user_id))
 
     def get_user_id_by_account(self, user_account):

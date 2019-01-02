@@ -28,7 +28,7 @@
 <form method="POST">
     {% csrf_token %}
     <div>
-    <textarea rows="5" name='theme_content' class = "form-control" >  </textarea>
+    <textarea rows="5" name='reply_content' class = "form-control" >  </textarea>
     {{err_inf}}
     <button type="submit" name="finished article" style="float:right"> 回复 </button>
     <br>
@@ -39,6 +39,7 @@
     <a href="{% url 'user_info' reply.user_id %}" >{{ reply.user_name }}</a>
     &nbsp;:&nbsp;
     {{ reply.content }}
+    &emsp; {{reply.reply_time}}
     <br>
 {% endfor %}
 

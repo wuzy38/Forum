@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from forumapp import views#导入views模块
+from forumapp import views as forum_views #导入views模块
+from account import views as account_views
 from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Forum/index/', views.test),
-    path('Forum/user_info/<int:user_id>/',views.user_info, name='user_info'),
-    path('Forum/test/', views.test, name='test'),
-    path('Forum/', views.home, name='home'),
-    path('Forum/register/', views.register, name = "register"),
-    path('Forum/login/', views.login, name = 'login'),
-    path('Forum/plate/<int:plate_id>', views.plate, name = 'plate'),
-    path('Forum/theme/<int:theme_id>', views.theme, name = 'theme'),
+    path('Forum/index/', forum_views.test),
+    path('Forum/user_info/<int:user_id>/', account_views.user_info, name='user_info'),
+    path('Forum/test/', forum_views.test, name='test'),
+    path('Forum/', forum_views.home, name='home'),
+    path('Forum/register/', account_views.register, name = "register"),
+    path('Forum/login/', account_views.login, name = 'login'),
+    path('Forum/plate/<int:plate_id>', forum_views.plate, name = 'plate'),
+    path('Forum/theme/<int:theme_id>', forum_views.theme, name = 'theme'),
 ]

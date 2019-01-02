@@ -36,6 +36,7 @@
     <a href="{% url 'user_info' theme.user_id %}" >{{ theme.user_name }}</a>
     &nbsp;:&nbsp;
     <a href="{% url 'theme' theme.theme_id %}">{{ theme.theme_name }}</a>
+    &emsp; {{theme.theme_time}}
     <br>
 {% endfor %}
 
