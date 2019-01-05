@@ -23,6 +23,7 @@
     <a href="{% url 'user_info' user.user_id %}" class="r_u" >{{user.user_account}}</a>
 {% endif %}
 
+<div class="container-fluid">
 <table>
     <thead>
         <tr>
@@ -43,6 +44,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 </body>
 </html>

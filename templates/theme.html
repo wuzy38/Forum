@@ -11,7 +11,11 @@
             position: fixed; 
             top: 5px; 
             right: 5px;
-        } 
+        }
+        .userstyle
+        {
+            color : black;
+        }
     </style>
 </head>
 
@@ -23,27 +27,30 @@
     <a href="{% url 'user_info' user.user_id %}" class="r_u" >{{user.user_account}}</a>
 {% endif %}
 
-<h1> {{theme_name}} </h1>
+<h1 class = "text-center"> {{theme_name}} </h1>
 
 <form method="POST">
     {% csrf_token %}
-    <div>
-    <textarea rows="5" name='reply_content' class = "form-control" >  </textarea>
-    {{err_inf}}
-    <button type="submit" name="finished article" style="float:right"> 回复 </button>
-    <br>
+    <div class="container-fluid">
+        <textarea rows="5" name='reply_content' class = "form-control" >  </textarea>
+        {{err_inf}}
+        <button type="submit" name="finished article" style="float:right"> 回复 </button>
+        <br>
     </div>
 </form>
 
-{% for reply in replys %}
-    <a href="{% url 'user_info' reply.user_id %}" >{{ reply.user_name }}</a>
-    &nbsp;:&nbsp;
-    {{ reply.content }}
-    &emsp; {{reply.reply_time}}
-    <br>
-{% endfor %}
-
-
+<div>
+    {% for reply in replys %}
+        <hr>
+        <div class="container-fluid">
+            <a href="{% url 'user_info' reply.user_id %}" class = "userstyle" style="text-decoration : none" >{{ reply.user_name }}</a>
+            :
+            <span style="float:right" > {{reply.reply_time}} </span>
+            <br>
+            {{ reply.content }} 
+        </div>
+    {% endfor %}
+</div>
 
 </body>
 </html>
